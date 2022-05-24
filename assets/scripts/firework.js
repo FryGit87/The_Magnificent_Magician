@@ -195,6 +195,20 @@
         this.coordinates.push([this.x, this.y]);
       }
     };
+
+    this.draw = (index) => {
+      context.beginPath();
+      context.moveTo(
+        this.coordinates[this.coordinates.length - 1][0],
+        this.coordinates[this.coordinates.length - 1][1]
+      );
+      context.lineTo(this.x, this.y);
+
+      context.strokeStyle = `hsla(${this.hue}, 100%, 50%, ${this.alpha})`;
+      context.stroke();
+
+      this.animate(index);
+    };
     init();
   }
 })();
