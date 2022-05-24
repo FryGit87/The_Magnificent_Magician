@@ -81,4 +81,42 @@
     attachEventListeners();
     loop();
   };
+
+  function Firework() {
+    const init = () => {
+      let fireworkLength = 10;
+
+      // Current coordinates
+      this.x = positions.wandX;
+      this.y = positions.wandY;
+
+      // Target coordinates
+      this.tx = positions.mouseX;
+      this.ty = positions.mouseY;
+
+      // distance from starting point to target
+      this.distanceToTarget = getDistance(
+        positions.wandX,
+        positions.wandY,
+        this.tx,
+        this.ty
+      );
+      this.distanceTraveled = 0;
+
+      this.coordinates = [];
+      this.angle = Math.atan2(
+        this.ty - positions.wandY,
+        this.tx - positions.wandX
+      );
+      this.speed = 20;
+      this.friction = 0.99; // Decelerate speed by 1% every frame
+      this.hue = random(0, 360); // A random hue given for the trail
+
+      while (fireworkLength--) {
+        this.coordinates.push([this.x, this.y]);
+      }
+    };
+
+    init();
+  }
 })();
