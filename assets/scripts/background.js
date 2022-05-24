@@ -17,6 +17,14 @@
     context.fillStyle = background;
     context.fillRect(0, 0, width, height);
   };
+  const drawForeground = () => {
+    context.fillStyle = "#0C1D2D";
+    context.fillRect(0, height * 0.95, width, height);
+
+    context.fillStyle = "#182746";
+    context.fillRect(0, height * 0.955, width, height);
+  };
 
   drawBackground();
+  drawForeground();
 })();
