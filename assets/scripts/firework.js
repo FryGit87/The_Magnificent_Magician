@@ -22,4 +22,16 @@
     attachEventListeners();
     loop();
   };
+
+  const attachEventListeners = () => {
+    canvas.addEventListener("mousemove", (e) => {
+      positions.mouseX = e.pageX;
+      positions.mouseY = e.pageY;
+    });
+  };
+
+  const loop = () => {
+    requestAnimationFrame(loop);
+    drawWand();
+  };
 })();
