@@ -5,6 +5,9 @@
   const width = window.innerWidth;
   const height = window.innerHeight;
 
+  const numberOfStars = 50;
+  const random = (min, max) => Math.random() * (max - min) + min;
+
   // Set canvas to fullscreen
   canvas.width = width;
   canvas.height = height;
@@ -41,8 +44,21 @@
       );
     };
   };
+  const drawStars = () => {
+    let starCount = numberOfStars;
 
+    context.fillStyle = "#FFF";
+
+    while (starCount--) {
+      const x = random(25, width - 50);
+      const y = random(25, height * 0.5);
+      const size = random(1, 5);
+
+      context.fillRect(x, y, size, size);
+    }
+  };
   drawBackground();
   drawForeground();
   drawWizard();
+  drawStars();
 })();
