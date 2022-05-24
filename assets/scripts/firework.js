@@ -75,6 +75,15 @@
   const loop = () => {
     requestAnimationFrame(loop);
     drawWand();
+
+    if (mouseClicked) {
+      fireworks.push(new Firework());
+    }
+
+    let fireworkIndex = fireworks.length;
+    while (fireworkIndex--) {
+      fireworks[fireworkIndex].draw(fireworkIndex);
+    }
   };
 
   image.onload = () => {
@@ -115,6 +124,49 @@
       while (fireworkLength--) {
         this.coordinates.push([this.x, this.y]);
       }
+    };
+    this.animate = (index) => {
+      this.coordinates.pop();
+      this.coordinates.unshift([this.x, this.y]);
+
+      this.speed *= this.friction;
+
+      let vx = Math.cos(this.angle) * this.speed;
+      let vy = Math.sin(this.angle) * this.speed;
+
+      this.distanceTraveled = getDistance(
+        positions.wandX,
+        positions.wandY,
+        this.x + vx,
+        this.y + vy
+      );
+
+      if (this.distanceTraveled >= this.distanceToTarget) {
+        let i = numberOfParticles;
+
+        while (i--) {
+          particles.push(new Particle(this.tx, this.ty));
+        }
+
+        fireworks.splice(index, 1);
+      } else {
+        this.x += vx;
+        this.y += vy;
+      }
+    };
+
+    this.draw = (index) => {
+      context.beginPath();
+      context.moveTo(
+        this.coordinates[this.coordinates.length - 1][0],
+        this.coordinates[this.coordinates.length - 1][1]
+      );
+      context.lineTo(this.x, this.y);
+
+      context.strokeStyle = `hsl(${this.hue}, 100%, 50%)`;
+      context.stroke();
+
+      this.animate(index);
     };
 
     init();
