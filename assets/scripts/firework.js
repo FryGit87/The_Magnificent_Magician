@@ -18,9 +18,34 @@
   canvas.height = height;
 
   image.src = "./assets/img/wand.png";
-  image.onload = () => {
-    attachEventListeners();
-    loop();
+
+  const drawWand = () => {
+    positions.wandX = width * 0.902 - image.width;
+    positions.wandY = height * 0.934 - image.height;
+
+    const rotationInRadians =
+      Math.atan2(
+        positions.mouseY - positions.wandY,
+        positions.mouseX - positions.wandX
+      ) - Math.PI;
+    const rotationInDegrees = (rotationInRadians * 180) / Math.PI + 360;
+
+    context.clearRect(0, 0, width, height);
+
+    context.save(); // Save context to remove transformation afterwards
+    context.translate(positions.wandX, positions.wandY);
+
+    if (rotationInDegrees > 0 && rotationInDegrees < 75) {
+      context.rotate((rotationInDegrees * Math.PI) / 180); // Need to convert back to radians
+    } else if (rotationInDegrees > 75 && rotationInDegrees < 275) {
+      context.rotate((75 * Math.PI) / 180); // Cap rotation at 75° if it the cursor goes beyond 75°
+    }
+
+    context.drawImage(image, -image.width, -image.height / 2); // Need to position anchor to right-middle part of the image
+
+    // You can draw a stroke around the context to see where the edges are
+    // context.strokeRect(0, 0, width, height);
+    context.restore();
   };
 
   const attachEventListeners = () => {
@@ -33,5 +58,10 @@
   const loop = () => {
     requestAnimationFrame(loop);
     drawWand();
+  };
+
+  image.onload = () => {
+    attachEventListeners();
+    loop();
   };
 })();
