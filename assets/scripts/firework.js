@@ -84,6 +84,10 @@
     while (fireworkIndex--) {
       fireworks[fireworkIndex].draw(fireworkIndex);
     }
+    let particleIndex = particles.length;
+    while (particleIndex--) {
+      particles[particleIndex].draw(particleIndex);
+    }
   };
 
   image.onload = () => {
@@ -193,6 +197,20 @@
 
       while (particleLength--) {
         this.coordinates.push([this.x, this.y]);
+      }
+    };
+    this.animate = (index) => {
+      this.coordinates.pop();
+      this.coordinates.unshift([this.x, this.y]);
+
+      this.speed *= this.friction;
+      this.x += Math.cos(this.angle) * this.speed;
+      this.y += Math.sin(this.angle) * this.speed + this.gravity;
+
+      this.alpha -= this.decay;
+
+      if (this.alpha <= this.decay) {
+        particles.splice(index, 1);
       }
     };
 
