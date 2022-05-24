@@ -171,4 +171,30 @@
 
     init();
   }
+
+  function Particle(x, y) {
+    const init = () => {
+      let particleLength = 7;
+
+      this.x = x;
+      this.y = y;
+
+      this.coordinates = [];
+
+      this.angle = random(0, Math.PI * 2);
+      this.speed = random(1, 10);
+
+      this.friction = 0.95;
+      this.gravity = 2;
+
+      this.hue = random(0, 360);
+      this.alpha = 1;
+      this.decay = random(0.015, 0.03);
+
+      while (particleLength--) {
+        this.coordinates.push([this.x, this.y]);
+      }
+    };
+    init();
+  }
 })();
