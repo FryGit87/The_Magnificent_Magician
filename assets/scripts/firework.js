@@ -68,6 +68,8 @@
       positions.mouseX = e.pageX;
       positions.mouseY = e.pageY;
     });
+    canvas.addEventListener("mousedown", () => (mouseClicked = true));
+    canvas.addEventListener("mouseup", () => (mouseClicked = false));
   };
 
   const loop = () => {
