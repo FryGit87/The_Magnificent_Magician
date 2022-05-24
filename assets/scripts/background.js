@@ -24,7 +24,25 @@
     context.fillStyle = "#182746";
     context.fillRect(0, height * 0.955, width, height);
   };
+  const drawWizard = () => {
+    const image = new Image();
+    image.src = "./assets/img/wizard.png";
+
+    image.onload = function () {
+      /**
+       * this - references the image object
+       * draw at 90% of the width of the canvas - the width of the image
+       * draw at 95% of the height of the canvas - the height of the image
+       */
+      context.drawImage(
+        this,
+        width * 0.9 - this.width,
+        height * 0.95 - this.height
+      );
+    };
+  };
 
   drawBackground();
   drawForeground();
+  drawWizard();
 })();
