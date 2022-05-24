@@ -12,7 +12,22 @@
     wandY: 0,
   };
 
+  const fireworks = [];
+  const particles = [];
+  const numberOfParticles = 50; // keep in mind performance degrades with higher number of particles
+
+  const random = (min, max) => Math.random() * (max - min) + min;
+
+  const getDistance = (x1, y1, x2, y2) => {
+    const xDistance = x1 - x2;
+    const yDistance = y1 - y2;
+
+    return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+  };
+
   const image = new Image();
+
+  let mouseClicked = false;
 
   canvas.width = width;
   canvas.height = height;
